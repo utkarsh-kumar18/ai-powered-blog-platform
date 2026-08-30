@@ -5,6 +5,9 @@ const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
+const PRIMARY_MODEL = "gemini-3.1-flash-lite";
+const FALLBACK_MODEL = "gemini-3.1-flash";
+
 const blogSchema = {
   type: "object",
   properties: {
@@ -41,6 +44,50 @@ const blogSchema = {
   additionalProperties: false,
 };
 
+function isTemporaryError(error: unknown) {
+  const message = error instanceof Error ? error.message.toLowerCase() : "";
+
+  return (
+    message.includes("503") ||
+    message.includes("unavailable") ||
+    message.includes("high demand") ||
+    message.includes("429") ||
+    message.includes("rate limit") ||
+    message.includes("resource exhausted")
+  );
+}
+
+async function generateWithFallback(
+  contents: string,
+  config?: Record<string, unknown>
+) {
+  const models = [PRIMARY_MODEL, FALLBACK_MODEL];
+
+  let lastError: unknown;
+
+  for (const model of models) {
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        return await ai.models.generateContent({
+          model,
+          contents,
+          config,
+        });
+      } catch (error) {
+        lastError = error;
+
+        if (!isTemporaryError(error) || attempt === 2) {
+          break;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+      }
+    }
+  }
+
+  throw lastError;
+}
+
 export async function POST(request: Request) {
   try {
     if (!process.env.GEMINI_API_KEY) {
@@ -64,9 +111,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const researchResponse = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
-      contents: `
+    const researchResponse = await generateWithFallback(
+      `
 Research the following topic carefully:
 
 ${topic}
@@ -76,15 +122,16 @@ Find reliable and relevant information about this exact topic.
 Important:
 - Identify the correct country, state, city, organization, person, event, or place when applicable.
 - Do not assume the user's premise is correct.
-- Correct obvious factual misunderstandings in the research.
+- Correct obvious factual misunderstandings.
 - Prefer authoritative and reputable sources.
-- For current or changing information, use recent information.
+- Use current information when the topic requires it.
 - Do not invent facts.
 - Do not use Wikipedia as the primary source.
+- Use web search when current or factual verification is needed.
 - Return a factual research briefing that another AI writer can use.
 `,
       
-    });
+    );
 
     const research = researchResponse.text?.trim();
 
@@ -97,9 +144,8 @@ Important:
       );
     }
 
-    const blogResponse = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
-      contents: `
+    const blogResponse = await generateWithFallback(
+      `
 You are the writing engine for a public AI-powered blog platform.
 
 The user requested a blog about:
@@ -145,12 +191,11 @@ WRITING REQUIREMENTS:
 - Do not output HTML.
 - Return only the requested JSON object.
 `,
-      config: {
+      {
         responseMimeType: "application/json",
         responseSchema: blogSchema,
-        temperature: 0.7,
-      },
-    });
+      }
+    );
 
     const output = blogResponse.text?.trim();
 
@@ -196,12 +241,14 @@ WRITING REQUIREMENTS:
   } catch (error) {
     console.error("Blog generation error:", error);
 
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Unable to generate the blog.";
+
     return NextResponse.json(
       {
-        error:
-          error instanceof Error
-            ? error.message
-            : "Unable to generate the blog.",
+        error: message,
       },
       { status: 500 }
     );
