@@ -729,16 +729,6 @@ export default function Home() {
                       <strong>{seoAnalysis.keywordCount}</strong>
                     </p>
                   </div>
-
-                  <div className="rounded-xl border border-slate-200 bg-white p-5">
-                    <h4 className="font-bold">
-                      Meta Description
-                    </h4>
-
-                    <p className="mt-2 text-xs text-slate-500">
-                      Aim for approximately 150–160 characters.
-                    </p>
-                  </div>
                 </div>
 
                 <div className="mt-6 rounded-xl border border-slate-200 bg-white p-5">
