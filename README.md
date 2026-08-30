@@ -4,7 +4,7 @@ An AI-powered web application that allows users to enter any topic and generate 
 
 ## Live Demo
 
-https://ai-powered-blog-platform-live-j48l0ypl.vercel.app
+https://ai-powered-blog-platform-live.vercel.app
 
 ## About the Project
 
