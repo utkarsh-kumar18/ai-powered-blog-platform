@@ -77,3 +77,24 @@ Google Gemini API
 AI-generated structured response
         ↓
 Blog displayed on the website
+
+
+## Project Structure
+
+ai-powered-blog-platform/
+│
+├── app/
+│   ├── api/
+│   │   └── generate/
+│   │       └── route.ts
+│   │
+│   ├── page.tsx
+│   ├── layout.tsx
+│   └── globals.css
+│
+├── public/
+│
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+└── README.md
