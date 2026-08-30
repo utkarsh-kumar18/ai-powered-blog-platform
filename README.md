@@ -1,100 +1,139 @@
 # AI-Powered Blog Platform
 
-An AI-powered web application that allows users to enter any topic and generate a well-structured blog article using Google's Gemini AI.
+An AI-powered web platform that helps users generate, plan, edit, and optimize blog content using artificial intelligence.
+
+The platform provides AI blog generation, content suggestions, a Markdown editor with live preview, word counting, and SEO analysis in a simple and responsive interface.
 
 ## Live Demo
 
 https://ai-powered-blog-platform-live.vercel.app
 
-## About the Project
+## GitHub Repository
 
-The AI-Powered Blog Platform is designed to simplify blog creation.
-
-Users can enter any topic, and the application generates an informative blog article with:
-
-- A title
-- Introduction
-- Multiple sections
-- Section headings
-- Detailed paragraphs
-- Conclusion
-- Automatic word count
-
-The application is designed to accept a wide range of topics rather than relying on a fixed list of predefined subjects.
+https://github.com/utkarsh-kumar18/ai-powered-blog-platform
 
 ## Features
 
 ### AI Blog Generation
 
-Enter any topic and generate a complete blog article with AI.
+Enter a topic and generate a complete blog article using Google's Gemini AI.
 
-### Structured Articles
+The generated article includes:
 
-Generated articles follow a consistent structure:
+- Title
+- Introduction
+- Multiple sections
+- Section paragraphs
+- Conclusion
 
-1. Title
-2. Introduction
-3. Multiple content sections
-4. Conclusion
+The generation process also performs topic-focused research before creating the final article.
+
+### AI Content Suggestions
+
+The platform can generate content planning suggestions for a selected topic.
+
+It provides:
+
+- Suggested blog titles
+- Suggested section headings
+- SEO keywords
+- Content ideas
+
+Users can clear the suggestions without affecting the generated blog.
+
+### Markdown Editor
+
+Generated blogs can be edited using a Markdown editor.
+
+Users can:
+
+- Edit the article
+- Save changes
+- View the updated content
+- Switch between editing and previewing
+
+### Live Preview
+
+The platform provides a live Markdown preview so users can see how their article will look while editing.
 
 ### Word Count
 
-The application automatically displays the number of words in the generated article.
+The generated blog displays its current word count.
 
-### Edit Blog
+The word count updates based on the current article content.
 
-Users can edit the generated blog before using it.
+### SEO Analysis
 
-### Regenerate
+The platform includes a built-in SEO analyzer that evaluates the generated article.
 
-Users can generate another version of the blog for the same topic.
+It provides:
 
-### Copy Blog
+- SEO score
+- Word count
+- Title length
+- Heading count
+- Primary keyword detection
+- Keyword usage count
+- SEO recommendations
 
-The complete generated blog can be copied to the clipboard.
+The SEO analysis is performed locally and does not require an additional AI API request.
 
-### Clear
+### Blog Controls
 
-Users can clear the generated content and start again.
+Users can:
 
-### Responsive Interface
+- Edit Blog
+- Save Blog
+- Regenerate the blog
+- Copy the complete blog
+- Clear the generated blog
+- Clear AI content suggestions
+- Run SEO Analysis
 
-The platform works across desktop and mobile screen sizes.
+## Technology Stack
 
-## How It Works
+### Frontend
 
-The application follows this flow:
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- React Markdown
 
-```text
-User enters a topic
-        ↓
-Next.js frontend
-        ↓
-Next.js API route
-        ↓
-Google Gemini API
-        ↓
-AI-generated structured response
-        ↓
-Blog displayed on the website
+### AI
 
+- Google Gemini API
+- `@google/genai`
+
+### Deployment
+
+- Vercel
+
+### Version Control
+
+- Git
+- GitHub
 
 ## Project Structure
 
+```text
 ai-powered-blog-platform/
 │
 ├── app/
 │   ├── api/
-│   │   └── generate/
+│   │   ├── generate/
+│   │   │   └── route.ts
+│   │   │
+│   │   └── suggestions/
 │   │       └── route.ts
 │   │
 │   ├── page.tsx
-│   ├── layout.tsx
-│   └── globals.css
+│   └── ...
 │
 ├── public/
 │
+├── .env.local
+├── .gitignore
 ├── package.json
 ├── tsconfig.json
-├── next.config.ts
 └── README.md
