@@ -79,7 +79,7 @@ AI-generated structured response
 Blog displayed on the website
 
 
-### Project Structure
+## Project Structure
 
 ai-powered-blog-platform/
 │
