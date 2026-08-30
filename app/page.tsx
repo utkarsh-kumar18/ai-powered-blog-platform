@@ -30,7 +30,6 @@ export default function Home() {
     headingCount: number;
     keyword: string;
     keywordCount: number;
-    metaDescription: string;
     recommendations: string[];
   } | null>(null);
 
@@ -193,11 +192,6 @@ export default function Home() {
 
     const titleLength = title.length;
 
-    const metaDescription =
-      introduction.length > 160
-        ? `${introduction.substring(0, 157).trim()}...`
-        : introduction;
-
     const recommendations: string[] = [];
 
     let score = 100;
@@ -276,7 +270,6 @@ export default function Home() {
       headingCount,
       keyword,
       keywordCount,
-      metaDescription,
       recommendations,
     });
   }
@@ -741,10 +734,6 @@ export default function Home() {
                     <h4 className="font-bold">
                       Meta Description
                     </h4>
-
-                    <div className="mt-3 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-700">
-                      {seoAnalysis.metaDescription}
-                    </div>
 
                     <p className="mt-2 text-xs text-slate-500">
                       Aim for approximately 150–160 characters.
