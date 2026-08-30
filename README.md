@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI-Powered Blog Platform
 
-## Getting Started
+An AI-powered web application that allows users to enter any topic and generate a well-structured blog article using Google's Gemini AI.
 
-First, run the development server:
+## Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+https://ai-powered-blog-platform-live-j48l0ypl.vercel.app
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About the Project
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The AI-Powered Blog Platform is designed to simplify blog creation.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Users can enter any topic, and the application generates an informative blog article with:
 
-## Learn More
+- A title
+- Introduction
+- Multiple sections
+- Section headings
+- Detailed paragraphs
+- Conclusion
+- Automatic word count
 
-To learn more about Next.js, take a look at the following resources:
+The application is designed to accept a wide range of topics rather than relying on a fixed list of predefined subjects.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### AI Blog Generation
 
-## Deploy on Vercel
+Enter any topic and generate a complete blog article with AI.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Structured Articles
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Generated articles follow a consistent structure:
+
+1. Title
+2. Introduction
+3. Multiple content sections
+4. Conclusion
+
+### Word Count
+
+The application automatically displays the number of words in the generated article.
+
+### Edit Blog
+
+Users can edit the generated blog before using it.
+
+### Regenerate
+
+Users can generate another version of the blog for the same topic.
+
+### Copy Blog
+
+The complete generated blog can be copied to the clipboard.
+
+### Clear
+
+Users can clear the generated content and start again.
+
+### Responsive Interface
+
+The platform works across desktop and mobile screen sizes.
+
+## How It Works
+
+The application follows this flow:
+
+```text
+User enters a topic
+        ↓
+Next.js frontend
+        ↓
+Next.js API route
+        ↓
+Google Gemini API
+        ↓
+AI-generated structured response
+        ↓
+Blog displayed on the website
